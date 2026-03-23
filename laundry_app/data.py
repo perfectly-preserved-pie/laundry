@@ -13,6 +13,7 @@ import re
 import pandas as pd
 
 from laundry_app.config import (
+    COLUMN_VALUE_OVERRIDES,
     HEADER_NORMALIZATIONS,
     NUMERIC_PATTERN,
     PURE_BOOLEAN_TOKENS,
@@ -75,6 +76,28 @@ def clean_cell(value: Any) -> Any:
         return int(value)
 
     return value
+
+
+def normalize_column_value(column: str, value: Any) -> Any:
+    """Apply column-specific overrides after the base cell normalization step.
+
+    Args:
+        column: The normalized column name.
+        value: The cleaned cell value for that column.
+
+    Returns:
+        The overridden value when a column-specific mapping exists, otherwise the
+        original cleaned value.
+    """
+
+    if value is None:
+        return None
+
+    overrides = COLUMN_VALUE_OVERRIDES.get(column)
+    if not overrides:
+        return value
+
+    return overrides.get(str(value), value)
 
 
 def parse_number(value: Any) -> int | float | None:
@@ -198,6 +221,8 @@ def prepare_sheet_frame(raw_sheet: pd.DataFrame) -> pd.DataFrame:
     frame = raw_sheet.iloc[header_index + 1 :, valid_positions].copy()
     frame.columns = headers
     frame = frame.map(clean_cell)
+    for column in frame.columns:
+        frame[column] = frame[column].map(lambda value, *, _column=column: normalize_column_value(_column, value))
     frame = frame.astype(object).where(pd.notna(frame), None)
     frame = frame.loc[
         frame.apply(lambda row: any(value not in (None, "") for value in row), axis=1)

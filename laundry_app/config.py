@@ -75,6 +75,42 @@ VALUE_NORMALIZATIONS = {
     "see notes": "See Notes",
 }
 
+COLUMN_VALUE_OVERRIDES: dict[str, dict[str, str | None]] = {
+    "Anti-Redep": {
+        "Unknown": None,
+    },
+    "Soapy Ingredients": {
+        "Unknown": None,
+        "Varies": None,
+    },
+    "HE Antifoam": {
+        "Unknown": None,
+    },
+    "Pectic Lyase": {
+        "Unknown": None,
+    },
+    "Mannanase": {
+        "Unknown": None,
+    },
+    "DNase": {
+        "Unknown": None,
+    },
+    "Cellulase": {
+        "Unknown": None,
+    },
+    "Fragrance-Free?": {
+        "No*": "No",
+    },
+    "Fragrance-Free Option": {
+        "Unknown": None,
+        "See Notes": None,
+    },
+    "OBA": {
+        "Yes*": "Yes",
+        "Unknown": None,
+    }
+}
+
 PURE_BOOLEAN_TOKENS = {
     "yes",
     "no",

@@ -244,8 +244,6 @@ def build_layout() -> dmc.MantineProvider:
                             },
                             style={"width": "100%", "height": "clamp(28rem, 66vh, 52rem)"},
                             dashGridOptions={
-                                "pagination": True,
-                                "paginationPageSize": 25,
                                 "animateRows": False,
                                 "tooltipShowDelay": 0,
                             },
