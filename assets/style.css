@@ -1,0 +1,257 @@
+html[data-mantine-color-scheme] {
+    --bs-body-bg: var(--mantine-color-body);
+    --bs-body-color: var(--mantine-color-text);
+    --bs-emphasis-color: var(--mantine-color-text);
+    --bs-secondary-color: var(--mantine-color-dimmed);
+    --bs-secondary-bg: var(--mantine-color-gray-1);
+    --bs-tertiary-bg: var(--mantine-color-gray-0);
+    --bs-border-color: var(--mantine-color-default-border);
+    --bs-card-bg: var(--mantine-color-body);
+    --bs-card-color: var(--mantine-color-text);
+    --bs-primary: var(--mantine-color-teal-filled);
+    --bs-primary-rgb: var(--mantine-color-teal-filled-rgb);
+    --bs-link-color: var(--mantine-color-anchor);
+    --bs-link-hover-color: var(--mantine-color-teal-filled-hover);
+}
+
+html[data-mantine-color-scheme="dark"] {
+    --bs-secondary-bg: var(--mantine-color-dark-6);
+    --bs-tertiary-bg: var(--mantine-color-dark-5);
+}
+
+body {
+    background:
+        radial-gradient(circle at top left, color-mix(in srgb, #f0cb88 20%, transparent), transparent 30%),
+        radial-gradient(circle at top right, color-mix(in srgb, #3f8f84 16%, transparent), transparent 35%),
+        var(--mantine-color-body);
+    color: var(--mantine-color-text);
+}
+
+html[data-mantine-color-scheme="dark"] body {
+    background:
+        radial-gradient(circle at top left, color-mix(in srgb, #f0cb88 8%, transparent), transparent 28%),
+        radial-gradient(circle at top right, color-mix(in srgb, #3f8f84 12%, transparent), transparent 34%),
+        linear-gradient(180deg, color-mix(in srgb, #0f1720 70%, var(--mantine-color-body)), var(--mantine-color-body));
+}
+
+.dbc {
+    --Dash-Stroke-Strong: var(--bs-border-color);
+    --Dash-Fill-Interactive-Strong: var(--bs-primary);
+    --Dash-Fill-Inverse-Strong: var(--bs-body-bg);
+    --Dash-Text-Primary: var(--bs-body-color);
+    --Dash-Text-Strong: var(--bs-body-color);
+}
+
+html[data-mantine-color-scheme="dark"] .dbc {
+    --Dash-Stroke-Weak: rgba(255, 255, 255, 0.15);
+    --Dash-Fill-Weak: rgba(255, 255, 255, 0.06);
+    --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.08);
+    --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.12);
+    --Dash-Fill-Disabled: rgba(255, 255, 255, 0.2);
+    --Dash-Text-Disabled: rgba(255, 255, 255, 0.3);
+    --Dash-Text-Weak: rgba(255, 255, 255, 0.3);
+}
+
+.dmc {
+    --Dash-Stroke-Strong: var(--mantine-color-default-border);
+    --Dash-Stroke-Weak: var(--mantine-color-disabled);
+    --Dash-Fill-Interactive-Strong: var(--mantine-primary-color-filled);
+    --Dash-Fill-Inverse-Strong: var(--mantine-color-body);
+    --Dash-Text-Primary: var(--mantine-color-text);
+    --Dash-Text-Strong: var(--mantine-color-text);
+    --Dash-Text-Disabled: var(--mantine-color-dimmed);
+    --Dash-Text-Weak: var(--mantine-color-dimmed);
+}
+
+html[data-mantine-color-scheme="dark"] .dmc {
+    --Dash-Fill-Inverse-Strong: var(--mantine-color-dark-6);
+    --Dash-Fill-Weak: rgba(255, 255, 255, 0.06);
+    --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.08);
+    --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.12);
+    --Dash-Fill-Disabled: rgba(255, 255, 255, 0.15);
+}
+
+.app-shell {
+    padding-bottom: 3rem;
+}
+
+.top-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.toolbar-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--bs-secondary-color);
+}
+
+.toolbar-subtitle {
+    font-size: 0.98rem;
+    font-weight: 600;
+}
+
+#title-card,
+.grid-card,
+.glossary-card {
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 16%, var(--bs-border-color));
+    border-radius: 1.4rem;
+    background:
+        linear-gradient(180deg, color-mix(in srgb, var(--bs-primary) 7%, transparent), transparent 9rem),
+        var(--bs-card-bg);
+    box-shadow: 0 20px 45px -30px rgba(0, 0, 0, 0.45);
+}
+
+#title-card {
+    overflow: hidden;
+}
+
+#title-card .card-body {
+    padding: 1.5rem;
+}
+
+.title-kicker {
+    margin-bottom: 0.55rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bs-secondary-color);
+}
+
+.title-metrics,
+.title-links,
+.sheet-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.title-metrics {
+    margin-bottom: 1rem;
+}
+
+.metric-pill,
+.sheet-pill {
+    padding: 0.52rem 0.82rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 14%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-tertiary-bg) 82%, transparent);
+    color: var(--bs-body-color);
+    font-weight: 600;
+}
+
+.sheet-pill-primary {
+    background: color-mix(in srgb, var(--bs-primary) 16%, transparent);
+}
+
+.title-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.82rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 14%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-tertiary-bg) 82%, transparent);
+}
+
+.title-link a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.title-link a:hover {
+    text-decoration: underline;
+}
+
+.grid-caption {
+    color: var(--bs-secondary-color);
+}
+
+#laundry-grid .ag-root-wrapper,
+#laundry-grid .ag-header,
+#laundry-grid .ag-floating-filter {
+    border-color: color-mix(in srgb, var(--bs-primary) 12%, var(--bs-border-color));
+}
+
+#laundry-grid .ag-root-wrapper {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+#laundry-grid .ag-row-hover::before {
+    background-color: color-mix(in srgb, var(--bs-primary) 7%, transparent);
+}
+
+.flag-column {
+    font-weight: 700;
+}
+
+.notes-column {
+    line-height: 1.45;
+}
+
+.detail-grid {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.detail-row {
+    padding: 0.9rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 10%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-tertiary-bg) 82%, transparent);
+}
+
+.detail-term,
+.glossary-term {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bs-secondary-color);
+}
+
+.detail-value {
+    margin-top: 0.28rem;
+    white-space: pre-line;
+}
+
+.glossary-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.glossary-entry + .glossary-entry {
+    padding-top: 1rem;
+    border-top: 1px solid var(--bs-border-color);
+}
+
+.glossary-definition {
+    margin-top: 0.22rem;
+    color: var(--bs-body-color);
+}
+
+@media (max-width: 767.98px) {
+    .top-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #title-card .card-body {
+        padding: 1.2rem;
+    }
+
+    .metric-pill,
+    .sheet-pill,
+    .title-link {
+        width: 100%;
+        justify-content: center;
+    }
+}

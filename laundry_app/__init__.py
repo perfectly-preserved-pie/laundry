@@ -1,0 +1,1 @@
+"""Laundry app package."""
