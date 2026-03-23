@@ -11,7 +11,7 @@ from dash import html
 from dash_iconify import DashIconify
 
 from laundry_app.config import (
-    AG_GRID_THEME,
+    AG_GRID_CLASS_NAME,
     GITHUB_URL,
     REDDIT_ATTRIBUTION_URL,
     WORKBOOK_TITLE,
@@ -153,7 +153,7 @@ def build_glossary_card(glossary: GlossarySections) -> dbc.Card | None:
                 [
                     html.H2("Column Key", className="h4 mb-2"),
                     html.P(
-                        "Glossary terms pulled from the workbook's Key sheet so the grid labels stay grounded in the source.",
+                        "Glossary terms are pulled from the spreadsheet's Key sheet.",
                         className="mb-3 grid-caption",
                     ),
                     dbc.Accordion(items, always_open=True, start_collapsed=True),
@@ -233,6 +233,7 @@ def build_layout() -> dmc.MantineProvider:
                         ),
                         dag.AgGrid(
                             id="laundry-grid",
+                            enableEnterpriseModules=True,
                             rowData=default_payload["rowData"],
                             columnDefs=default_payload["columnDefs"],
                             defaultColDef={
@@ -243,13 +244,12 @@ def build_layout() -> dmc.MantineProvider:
                             },
                             style={"width": "100%", "height": "clamp(28rem, 66vh, 52rem)"},
                             dashGridOptions={
-                                "theme": AG_GRID_THEME,
                                 "pagination": True,
                                 "paginationPageSize": 25,
                                 "animateRows": False,
                                 "tooltipShowDelay": 0,
                             },
-                            dangerously_allow_code=True,
+                            className=AG_GRID_CLASS_NAME,
                         ),
                     ]
                 ),

@@ -180,6 +180,27 @@ html[data-mantine-color-scheme="dark"] .dmc {
     border-color: color-mix(in srgb, var(--bs-primary) 12%, var(--bs-border-color));
 }
 
+#laundry-grid.ag-theme-quartz,
+.laundry-grid-theme {
+    --ag-font-family: var(--mantine-font-family);
+    --ag-font-size: 0.95rem;
+    --ag-border-color: color-mix(in srgb, var(--bs-primary) 12%, var(--bs-border-color));
+    --ag-row-border-color: color-mix(in srgb, var(--bs-primary) 8%, var(--bs-border-color));
+    --ag-background-color: var(--mantine-color-body);
+    --ag-foreground-color: var(--mantine-color-text);
+    --ag-header-background-color: color-mix(in srgb, var(--bs-tertiary-bg) 92%, transparent);
+    --ag-header-foreground-color: var(--mantine-color-text);
+    --ag-odd-row-background-color: color-mix(in srgb, var(--bs-tertiary-bg) 45%, transparent);
+    --ag-row-hover-color: color-mix(in srgb, var(--bs-primary) 7%, transparent);
+    --ag-selected-row-background-color: color-mix(in srgb, var(--bs-primary) 10%, transparent);
+    --ag-checkbox-background-color: color-mix(in srgb, var(--bs-tertiary-bg) 85%, transparent);
+    --ag-checkbox-checked-color: var(--bs-primary);
+    --ag-checkbox-unchecked-color: color-mix(in srgb, var(--bs-secondary-color) 55%, var(--bs-border-color));
+    --ag-input-focus-border-color: color-mix(in srgb, var(--bs-primary) 60%, transparent);
+    --ag-borders: solid 1px;
+    --ag-wrapper-border-radius: 1rem;
+}
+
 #laundry-grid .ag-root-wrapper {
     border-radius: 1rem;
     overflow: hidden;

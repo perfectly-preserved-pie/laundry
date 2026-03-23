@@ -13,9 +13,9 @@ import re
 import pandas as pd
 
 from laundry_app.config import (
-    BOOLEANISH_TOKENS,
     HEADER_NORMALIZATIONS,
     NUMERIC_PATTERN,
+    PURE_BOOLEAN_TOKENS,
     SET_FILTER_MAX_UNIQUES,
     SHEET_CONFIGS,
     VALUE_NORMALIZATIONS,
@@ -87,7 +87,7 @@ def parse_number(value: Any) -> int | float | None:
         An ``int`` or ``float`` when parsing succeeds, otherwise ``None``.
     """
 
-    if value is None:
+    if value is None or pd.isna(value):
         return None
 
     if isinstance(value, (int, float)):
@@ -99,6 +99,31 @@ def parse_number(value: Any) -> int | float | None:
 
     numeric = float(text)
     return int(numeric) if numeric.is_integer() else numeric
+
+
+def parse_boolean(value: Any) -> bool | None:
+    """Convert a normalized yes/no value into a Python boolean.
+
+    Args:
+        value: Cell value that may represent a boolean in the workbook.
+
+    Returns:
+        ``True`` for ``Yes``, ``False`` for ``No``, and ``None`` for empty cells
+        or values that are not strict booleans.
+    """
+
+    if value is None or pd.isna(value):
+        return None
+
+    if isinstance(value, bool):
+        return value
+
+    token = str(value).strip().casefold()
+    if token == "yes":
+        return True
+    if token == "no":
+        return False
+    return None
 
 
 def workbook_candidates() -> list[Path]:
@@ -173,6 +198,7 @@ def prepare_sheet_frame(raw_sheet: pd.DataFrame) -> pd.DataFrame:
     frame = raw_sheet.iloc[header_index + 1 :, valid_positions].copy()
     frame.columns = headers
     frame = frame.map(clean_cell)
+    frame = frame.astype(object).where(pd.notna(frame), None)
     frame = frame.loc[
         frame.apply(lambda row: any(value not in (None, "") for value in row), axis=1)
     ].reset_index(drop=True)
@@ -228,7 +254,7 @@ def infer_column_kind(column: str, series: pd.Series) -> str:
     if column in {"Product Name", "Notes"}:
         return "text"
 
-    values = [value for value in series.tolist() if value not in (None, "")]
+    values = [value for value in series.tolist() if value not in (None, "") and not pd.isna(value)]
     if not values:
         return "text"
 
@@ -239,7 +265,7 @@ def infer_column_kind(column: str, series: pd.Series) -> str:
     normalized_tokens = {token.casefold() for token in unique_values}
     max_length = max(len(token) for token in unique_values)
 
-    if normalized_tokens and normalized_tokens <= BOOLEANISH_TOKENS:
+    if normalized_tokens and normalized_tokens <= PURE_BOOLEAN_TOKENS:
         return "boolean"
 
     if len(unique_values) <= SET_FILTER_MAX_UNIQUES and max_length <= 36:
@@ -304,6 +330,16 @@ def build_column_def(column: str, kind: str) -> ColumnDef:
         return column_def
 
     if kind in {"boolean", "set"}:
+        if kind == "boolean":
+            column_def.update(
+                {
+                    "filter": "agSetColumnFilter",
+                    "cellDataType": "boolean",
+                    "minWidth": 120,
+                }
+            )
+            return column_def
+
         column_def.update(
             {
                 "filter": "agSetColumnFilter",
@@ -311,12 +347,10 @@ def build_column_def(column: str, kind: str) -> ColumnDef:
                     "buttons": ["reset", "apply"],
                     "closeOnApply": True,
                 },
-                "minWidth": 150 if kind == "boolean" else 140,
+                "minWidth": 140,
                 "tooltipField": column,
             }
         )
-        if kind == "boolean":
-            column_def["cellClass"] = "flag-column"
         return column_def
 
     column_def["tooltipField"] = column
@@ -352,6 +386,8 @@ def build_sheet_payload(sheet_name: str, frame: pd.DataFrame) -> SheetPayload:
         kind_map[column] = kind
         if kind == "number":
             working_frame[column] = working_frame[column].map(parse_number)
+        if kind == "boolean":
+            working_frame[column] = working_frame[column].map(parse_boolean)
         column_defs.append(build_column_def(column, kind))
 
     return {

@@ -75,27 +75,12 @@ VALUE_NORMALIZATIONS = {
     "see notes": "See Notes",
 }
 
-BOOLEANISH_TOKENS = {
+PURE_BOOLEAN_TOKENS = {
     "yes",
-    "yes*",
     "no",
-    "no*",
-    "unknown",
-    "varies",
-    "see notes",
 }
 
 SET_FILTER_MAX_UNIQUES = 12
 NUMERIC_PATTERN = re.compile(r"^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$")
 
-AG_GRID_THEME: dict[str, str] = {
-    "function": (
-        "themeQuartz.withParams({"
-        "accentColor: 'var(--mantine-primary-color-filled)', "
-        "backgroundColor: 'var(--mantine-color-body)', "
-        "foregroundColor: 'var(--mantine-color-text)', "
-        "fontFamily: 'var(--mantine-font-family)', "
-        "headerFontWeight: 600"
-        "})"
-    )
-}
+AG_GRID_CLASS_NAME = "ag-theme-quartz grid-shell laundry-grid-theme"
