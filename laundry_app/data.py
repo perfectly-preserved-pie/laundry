@@ -22,6 +22,7 @@ from laundry_app.config import (
     VALUE_NORMALIZATIONS,
     WORKBOOK_EXPORT_URL,
 )
+from laundry_app.filtering import build_filter_options
 from laundry_app.types import AppData, ColumnDef, GlossarySections, SheetPayload
 
 
@@ -299,12 +300,17 @@ def infer_column_kind(column: str, series: pd.Series) -> str:
     return "text"
 
 
-def build_column_def(column: str, kind: str) -> ColumnDef:
+def build_column_def(
+    column: str,
+    kind: str,
+    filter_options: list[dict[str, str]] | None = None,
+) -> ColumnDef:
     """Create a Dash AG Grid column definition for a normalized column.
 
     Args:
         column: The display name for the column.
         kind: The inferred filter kind for the column.
+        filter_options: Optional low-cardinality values used by the OSS set filter.
 
     Returns:
         A Dash AG Grid column definition tailored to the column's content type.
@@ -358,7 +364,7 @@ def build_column_def(column: str, kind: str) -> ColumnDef:
         if kind == "boolean":
             column_def.update(
                 {
-                    "filter": "agSetColumnFilter",
+                    "filter": True,
                     "cellDataType": "boolean",
                     "minWidth": 120,
                 }
@@ -367,10 +373,9 @@ def build_column_def(column: str, kind: str) -> ColumnDef:
 
         column_def.update(
             {
-                "filter": "agSetColumnFilter",
+                "filter": {"function": "LaundrySetFilter"},
                 "filterParams": {
-                    "buttons": ["reset", "apply"],
-                    "closeOnApply": True,
+                    "values": filter_options or [],
                 },
                 "minWidth": 140,
                 "tooltipField": column,
@@ -413,7 +418,8 @@ def build_sheet_payload(sheet_name: str, frame: pd.DataFrame) -> SheetPayload:
             working_frame[column] = working_frame[column].map(parse_number)
         if kind == "boolean":
             working_frame[column] = working_frame[column].map(parse_boolean)
-        column_defs.append(build_column_def(column, kind))
+        filter_options = build_filter_options(working_frame[column].tolist()) if kind == "set" else None
+        column_defs.append(build_column_def(column, kind, filter_options))
 
     return {
         "tab_id": config["tab_id"],

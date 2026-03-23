@@ -43,8 +43,8 @@ def build_title_card(data: AppData | None) -> dbc.Card:
                 className="d-block mb-3",
             ),
             html.P(
-                "Switch tabs to browse detergents, pretreaters, and boosters. Use column filters to "
-                "slice categorical flags, retailer brands, and long-form notes, then click any row for a detail view.",
+                "Switch tabs to browse detergents, pretreaters, and boosters. Use the inline grid filters for "
+                "categorical fields, numbers, flags, and long-form notes, then click any row for a detail view.",
                 className="mb-3",
             ),
             html.Div(
@@ -211,7 +211,8 @@ def build_layout() -> dmc.MantineProvider:
                 dbc.CardBody(
                     [
                         html.P(
-                            "Choose a sheet, filter the columns, and click a row to open the product detail modal.",
+                            "Choose a sheet, use the floating filter row and column menus to narrow the grid, and click "
+                            "a row to open the product detail modal.",
                             className="mb-3 grid-caption",
                         ),
                         dbc.Tabs(
@@ -233,7 +234,6 @@ def build_layout() -> dmc.MantineProvider:
                         ),
                         dag.AgGrid(
                             id="laundry-grid",
-                            enableEnterpriseModules=True,
                             rowData=default_payload["rowData"],
                             columnDefs=default_payload["columnDefs"],
                             defaultColDef={
