@@ -28,6 +28,85 @@ def update_grid(active_tab: str) -> tuple[list[GridRow], list[ColumnDef], html.D
     return payload["rowData"], payload["columnDefs"], build_sheet_summary(payload)
 
 
+def get_boolean_badge_label(value: Any) -> str | None:
+    """Return a Yes/No label when the value should be displayed as a boolean badge."""
+
+    if isinstance(value, bool):
+        return "Yes" if value else "No"
+
+    if isinstance(value, str):
+        normalized = value.strip().casefold()
+        if normalized in {"yes", "true"}:
+            return "Yes"
+        if normalized in {"no", "false"}:
+            return "No"
+
+    return None
+
+
+def build_detail_value_node(value: Any) -> tuple[Any, bool]:
+    """Create the rendered value node for the modal detail grid."""
+
+    badge_label = get_boolean_badge_label(value)
+    if badge_label is not None:
+        badge_class = "detail-badge detail-badge-yes" if badge_label == "Yes" else "detail-badge detail-badge-no"
+        return html.Span(badge_label, className=badge_class), True
+
+    return html.Div(str(value), className="detail-value"), False
+
+
+def build_detail_item(label: str, value: Any, *, wide: bool = False) -> html.Div:
+    """Render a compact key/value item for the product detail modal."""
+
+    value_node, is_boolean_style = build_detail_value_node(value)
+    class_names = ["detail-item"]
+    if wide:
+        class_names.append("detail-item-wide")
+    if is_boolean_style:
+        class_names.append("detail-item-boolean")
+
+    return html.Div(
+        [
+            html.Div(label, className="detail-term"),
+            value_node,
+        ],
+        className=" ".join(class_names),
+    )
+
+
+def build_product_detail_body(selected_row: GridRow) -> html.Div:
+    """Create a denser, less noisy modal body for a selected product row."""
+
+    detail_items = []
+    notes_item: html.Div | None = None
+
+    for key, value in selected_row.items():
+        if value in (None, "") or key == "Product Name":
+            continue
+
+        if key == "Notes":
+            notes_item = build_detail_item(key, value, wide=True)
+            continue
+
+        detail_items.append(build_detail_item(key, value))
+
+    children = []
+    if detail_items:
+        children.append(html.Div(detail_items, className="detail-grid"))
+    if notes_item is not None:
+        children.append(notes_item)
+
+    if not children:
+        children.append(
+            html.Div(
+                "No additional details available.",
+                className="detail-empty",
+            )
+        )
+
+    return html.Div(children, className="product-detail-body")
+
+
 def toggle_product_modal(
     cell_clicked_data: ClickPayload | None,
     close_clicks: int | None,
@@ -71,24 +150,10 @@ def toggle_product_modal(
     if not selected_row:
         raise PreventUpdate
 
-    details = []
-    for key, value in selected_row.items():
-        if value in (None, ""):
-            continue
-        details.append(
-            html.Div(
-                [
-                    html.Div(key, className="detail-term"),
-                    html.Div(str(value), className="detail-value"),
-                ],
-                className="detail-row",
-            )
-        )
-
     return (
         True,
         selected_row.get("Product Name", "Product Details"),
-        html.Div(details, className="detail-grid"),
+        build_product_detail_body(selected_row),
     )
 
 

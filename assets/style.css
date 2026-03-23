@@ -365,30 +365,122 @@ html[data-mantine-color-scheme="dark"] .dmc {
     line-height: 1.45;
 }
 
-.detail-grid {
-    display: grid;
-    gap: 0.85rem;
+#product-modal .modal-content {
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 14%, var(--bs-border-color));
+    border-radius: 1.2rem;
+    background:
+        linear-gradient(180deg, color-mix(in srgb, var(--bs-primary) 6%, transparent), transparent 8rem),
+        var(--bs-card-bg);
+    box-shadow: 0 24px 55px -34px rgba(0, 0, 0, 0.5);
 }
 
-.detail-row {
-    padding: 0.9rem 1rem;
-    border-radius: 1rem;
+#product-modal .modal-header,
+#product-modal .modal-body,
+#product-modal .modal-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#product-modal .modal-header {
+    padding-top: 0.9rem;
+    padding-bottom: 0.65rem;
+    border-bottom-color: color-mix(in srgb, var(--bs-primary) 10%, var(--bs-border-color));
+}
+
+#product-modal .modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+#product-modal .modal-body {
+    padding-top: 0.75rem;
+    padding-bottom: 0.9rem;
+}
+
+#product-modal .modal-footer {
+    padding-top: 0.65rem;
+    padding-bottom: 0.9rem;
+    border-top-color: color-mix(in srgb, var(--bs-primary) 10%, var(--bs-border-color));
+}
+
+.product-detail-body {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 0.55rem;
+}
+
+.detail-item {
+    min-width: 0;
+    padding: 0.62rem 0.75rem;
+    border-radius: 0.9rem;
     border: 1px solid color-mix(in srgb, var(--bs-primary) 10%, var(--bs-border-color));
     background: color-mix(in srgb, var(--bs-tertiary-bg) 82%, transparent);
 }
 
-.detail-term,
+.detail-item-boolean {
+    gap: 0.35rem;
+}
+
+.detail-item-wide {
+    grid-column: 1 / -1;
+}
+
+.detail-term {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--bs-secondary-color);
+}
+
+.detail-value {
+    margin-top: 0.18rem;
+    white-space: pre-line;
+    line-height: 1.34;
+}
+
+.detail-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin-top: 0.3rem;
+    padding: 0.3rem 0.58rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.detail-badge-yes {
+    border-color: color-mix(in srgb, var(--bs-primary) 24%, transparent);
+    background: color-mix(in srgb, var(--bs-primary) 16%, transparent);
+    color: var(--bs-primary);
+}
+
+.detail-badge-no {
+    border-color: color-mix(in srgb, var(--bs-secondary-color) 22%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-secondary-color) 12%, transparent);
+    color: color-mix(in srgb, var(--bs-body-color) 82%, var(--bs-secondary-color));
+}
+
+.detail-empty {
+    color: var(--bs-secondary-color);
+}
+
 .glossary-term {
     font-size: 0.8rem;
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--bs-secondary-color);
-}
-
-.detail-value {
-    margin-top: 0.28rem;
-    white-space: pre-line;
 }
 
 .glossary-list {
