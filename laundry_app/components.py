@@ -46,7 +46,6 @@ def build_title_card(data: AppData | None) -> dbc.Card:
                 [
                     dbc.Badge(f"{sheet_count} source sheets", className="metric-pill"),
                     dbc.Badge(f"{row_count} rows loaded", className="metric-pill"),
-                    dbc.Badge("Dash AG Grid", className="metric-pill"),
                 ],
                 className="title-metrics",
             ),
