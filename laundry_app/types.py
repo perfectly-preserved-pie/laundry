@@ -15,6 +15,7 @@ class SheetConfig(TypedDict):
     tab_id: str
     label: str
     description: str
+    glossary_section: str
 
 
 class GlossaryEntry(TypedDict):
@@ -38,6 +39,7 @@ class SheetPayload(TypedDict):
     rowData: list[GridRow]
     columnDefs: list[ColumnDef]
     columnKinds: dict[str, str]
+    glossary: GlossarySections
 
 
 class AppData(TypedDict):

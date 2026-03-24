@@ -475,26 +475,57 @@ html[data-mantine-color-scheme="dark"] .dmc {
     color: var(--bs-secondary-color);
 }
 
+.glossary-card .card-body {
+    padding: 1rem;
+}
+
+.glossary-sections {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.glossary-section {
+    padding: 0.85rem 0.9rem;
+    border-radius: 1rem;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 10%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-tertiary-bg) 62%, transparent);
+}
+
+.glossary-section-title {
+    margin-bottom: 0.65rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
 .glossary-term {
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     font-weight: 800;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
     color: var(--bs-secondary-color);
 }
 
 .glossary-list {
     display: grid;
-    gap: 1rem;
+    gap: 0.65rem;
+}
+
+.glossary-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+    gap: 0.25rem 0.85rem;
+    align-items: start;
 }
 
 .glossary-entry + .glossary-entry {
-    padding-top: 1rem;
+    padding-top: 0.65rem;
     border-top: 1px solid var(--bs-border-color);
 }
 
 .glossary-definition {
-    margin-top: 0.22rem;
+    margin-top: 0;
+    min-width: 0;
+    line-height: 1.38;
     color: var(--bs-body-color);
 }
 
@@ -513,5 +544,31 @@ html[data-mantine-color-scheme="dark"] .dmc {
     .title-link {
         width: 100%;
         justify-content: center;
+    }
+
+    .glossary-card .card-body {
+        padding: 0.9rem;
+    }
+
+    .glossary-section {
+        padding: 0.75rem 0.8rem;
+    }
+
+    .glossary-section-title {
+        margin-bottom: 0.55rem;
+        font-size: 0.88rem;
+    }
+
+    .glossary-entry {
+        grid-template-columns: 1fr;
+        gap: 0.12rem;
+    }
+
+    .glossary-entry + .glossary-entry {
+        padding-top: 0.55rem;
+    }
+
+    .glossary-definition {
+        font-size: 0.96rem;
     }
 }

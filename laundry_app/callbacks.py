@@ -7,25 +7,30 @@ from typing import Any
 from dash import Dash, Input, Output, State, callback_context, html, no_update
 from dash.exceptions import PreventUpdate
 
-from laundry_app.components import build_sheet_summary
+from laundry_app.components import build_glossary_card, build_sheet_summary
 from laundry_app.data import load_app_data
 from laundry_app.types import ClickPayload, ColumnDef, GridRow
 
 
-def update_grid(active_tab: str) -> tuple[list[GridRow], list[ColumnDef], html.Div]:
+def update_grid(active_tab: str) -> tuple[list[GridRow], list[ColumnDef], html.Div, Any]:
     """Swap the AG Grid payload when the selected tab changes.
 
     Args:
         active_tab: The currently selected tab id from the Bootstrap tabs component.
 
     Returns:
-        A tuple containing the new row data, new column definitions, and the
-        updated summary component for the active sheet.
+        A tuple containing the new row data, new column definitions, the
+        updated summary component, and the active glossary card.
     """
 
     data = load_app_data()
     payload = data["payloads"].get(active_tab) or data["payloads"][data["default_tab"]]
-    return payload["rowData"], payload["columnDefs"], build_sheet_summary(payload)
+    return (
+        payload["rowData"],
+        payload["columnDefs"],
+        build_sheet_summary(payload),
+        build_glossary_card(payload["glossary"]),
+    )
 
 
 def get_boolean_badge_label(value: Any) -> str | None:
@@ -171,6 +176,7 @@ def register_callbacks(app: Dash) -> None:
         Output("laundry-grid", "rowData"),
         Output("laundry-grid", "columnDefs"),
         Output("sheet-summary", "children"),
+        Output("glossary-card-container", "children"),
         Input("laundry-tabs", "active_tab"),
     )(update_grid)
 

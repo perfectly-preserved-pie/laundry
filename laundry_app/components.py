@@ -66,7 +66,7 @@ def build_title_card(data: AppData | None) -> dbc.Card:
                     ),
                     html.Span(
                         [
-                            DashIconify(icon="material-symbols:table-chart-outline-rounded", width=18),
+                            DashIconify(icon="simple-icons:googlesheets", width=18),
                             html.A("Source Sheet", href=WORKBOOK_URL, target="_blank", title=WORKBOOK_TITLE),
                         ],
                         className="title-link",
@@ -75,7 +75,7 @@ def build_title_card(data: AppData | None) -> dbc.Card:
                         [
                             DashIconify(icon="mdi:reddit", width=18),
                             html.A(
-                                "Attribution: /u/KismaiAesthetics",
+                                "Made possible by and thanks to /u/KismaiAesthetics",
                                 href=REDDIT_ATTRIBUTION_URL,
                                 target="_blank",
                             ),
@@ -119,45 +119,50 @@ def build_glossary_card(glossary: GlossarySections) -> dbc.Card | None:
         glossary: Parsed glossary sections keyed by section title.
 
     Returns:
-        A Bootstrap card containing accordion items, or ``None`` when no glossary
-        data is available.
+        A Bootstrap card containing the relevant glossary entries, or ``None``
+        when no glossary data is available.
     """
 
     if not glossary:
         return None
 
-    items = []
+    sections = []
     for section, entries in glossary.items():
-        items.append(
-            dbc.AccordionItem(
-                html.Div(
-                    [
-                        html.Div(
-                            [
-                                html.Div(entry["term"], className="glossary-term"),
-                                html.Div(entry["definition"], className="glossary-definition"),
-                            ],
-                            className="glossary-entry",
-                        )
-                        for entry in entries
-                    ],
-                    className="glossary-list",
-                ),
-                title=section,
+        sections.append(
+            html.Div(
+                [
+                    html.Div(section, className="glossary-section-title"),
+                    html.Div(
+                        [
+                            html.Div(
+                                [
+                                    html.Div(entry["term"], className="glossary-term"),
+                                    html.Div(entry["definition"], className="glossary-definition"),
+                                ],
+                                className="glossary-entry",
+                            )
+                            for entry in entries
+                        ],
+                        className="glossary-list",
+                    ),
+                ],
+                className="glossary-section",
             )
         )
 
     return dbc.Card(
         [
             dbc.CardBody(
-                [
-                    html.H2("Column Key", className="h4 mb-2"),
-                    html.P(
-                        "Glossary terms are pulled from the spreadsheet's Key sheet.",
-                        className="mb-3 grid-caption",
-                    ),
-                    dbc.Accordion(items, always_open=True, start_collapsed=True),
-                ]
+                html.Div(
+                    [
+                        html.H2("Column Key", className="h4 mb-2"),
+                        html.P(
+                            "Glossary terms are pulled from the spreadsheet's Key sheet.",
+                            className="mb-3 grid-caption",
+                        ),
+                        html.Div(sections, className="glossary-sections"),
+                    ]
+                )
             )
         ],
         className="glossary-card mt-4",
@@ -255,9 +260,12 @@ def build_layout() -> dmc.MantineProvider:
             )
         )
 
-        glossary_card = build_glossary_card(data["glossary"])
-        if glossary_card is not None:
-            sections.append(glossary_card)
+        sections.append(
+            html.Div(
+                build_glossary_card(default_payload["glossary"]),
+                id="glossary-card-container",
+            )
+        )
 
     return dmc.MantineProvider(
         dbc.Container(

@@ -266,6 +266,22 @@ def parse_glossary(raw_sheet: pd.DataFrame) -> GlossarySections:
     return sections
 
 
+def get_sheet_glossary(sheet_name: str, glossary: GlossarySections) -> GlossarySections:
+    """Return just the glossary section that belongs to a given sheet."""
+
+    config = SHEET_CONFIGS.get(sheet_name)
+    if not config:
+        return {}
+
+    glossary_section = config["glossary_section"]
+    if glossary_section not in glossary:
+        return {}
+
+    return {
+        glossary_section: glossary[glossary_section],
+    }
+
+
 def infer_column_kind(column: str, series: pd.Series) -> str:
     """Infer the best AG Grid filter kind for a sheet column.
 
@@ -387,7 +403,11 @@ def build_column_def(
     return column_def
 
 
-def build_sheet_payload(sheet_name: str, frame: pd.DataFrame) -> SheetPayload:
+def build_sheet_payload(
+    sheet_name: str,
+    frame: pd.DataFrame,
+    glossary: GlossarySections,
+) -> SheetPayload:
     """Convert a cleaned sheet data frame into a tab payload for the app.
 
     Args:
@@ -404,6 +424,7 @@ def build_sheet_payload(sheet_name: str, frame: pd.DataFrame) -> SheetPayload:
             "tab_id": re.sub(r"[^a-z0-9]+", "-", sheet_name.casefold()).strip("-"),
             "label": sheet_name,
             "description": "Filterable sheet data.",
+            "glossary_section": "",
         },
     )
 
@@ -430,6 +451,7 @@ def build_sheet_payload(sheet_name: str, frame: pd.DataFrame) -> SheetPayload:
         "rowData": working_frame.where(pd.notna(working_frame), None).to_dict("records"),
         "columnDefs": column_defs,
         "columnKinds": kind_map,
+        "glossary": get_sheet_glossary(sheet_name, glossary),
     }
 
 
@@ -457,6 +479,7 @@ def load_app_data() -> AppData:
     )
 
     glossary: GlossarySections = {}
+    data_sheets: list[tuple[str, pd.DataFrame]] = []
     payloads: dict[str, SheetPayload] = {}
     sheet_order: list[str] = []
     total_rows = 0
@@ -466,7 +489,10 @@ def load_app_data() -> AppData:
             glossary = parse_glossary(raw_sheet)
             continue
 
-        payload = build_sheet_payload(sheet_name, prepare_sheet_frame(raw_sheet))
+        data_sheets.append((sheet_name, raw_sheet))
+
+    for sheet_name, raw_sheet in data_sheets:
+        payload = build_sheet_payload(sheet_name, prepare_sheet_frame(raw_sheet), glossary)
         payloads[payload["tab_id"]] = payload
         sheet_order.append(payload["tab_id"])
         total_rows += payload["count"]

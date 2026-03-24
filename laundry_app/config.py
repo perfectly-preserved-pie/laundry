@@ -25,16 +25,19 @@ SHEET_CONFIGS: dict[str, SheetConfig] = {
         "tab_id": "detergents",
         "label": "Detergents",
         "description": "Laundry detergents with formula notes, fragrance options, and enzyme-related flags.",
+        "glossary_section": "Detergent Key",
     },
     "Pretreaters - North America": {
         "tab_id": "pretreaters",
         "label": "Pretreaters",
         "description": "Stain removers and pretreaters with enzyme coverage, solvent presence, and retailer-brand markers.",
+        "glossary_section": "Pretreater Key",
     },
     "Boosters - North America": {
         "tab_id": "boosters",
         "label": "Boosters",
         "description": "Laundry boosters grouped by class with oxygen bleach, scent-control, and enzyme traits.",
+        "glossary_section": "Booster Key",
     },
 }
 
