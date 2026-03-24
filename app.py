@@ -14,6 +14,12 @@ app = dash.Dash(
     title="Laundry Lookup",
     description="A Dash AG Grid app for comparing laundry detergent formulas.",
     external_stylesheets=[dbc.themes.BOOTSTRAP],
+    external_scripts=[
+        {
+            "src": "https://plausible.automateordie.io/js/pa-ju6FKAd5xzT9Ac6UE0BMH.js",
+            "async": "async",
+        }
+    ],
     suppress_callback_exceptions=True,
 )
 dmc.pre_render_color_scheme()
