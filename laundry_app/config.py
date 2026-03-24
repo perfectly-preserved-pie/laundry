@@ -64,6 +64,15 @@ HEADER_NORMALIZATIONS = {
     "Anti- Redep": "Anti-Redep",
 }
 
+GLOSSARY_TERM_ALIASES = {
+    "Product Name:": "Product Name",
+    "Fragrance-Free Variety": "Fragrance-Free Option",
+    "Primarily Plant-Based Surfactants": "Plant-Based Surfactants",
+    "Pectate Lyase": "Pectic Lyase",
+    "Solvent": "Solvent?",
+    "Fragrance-Free": "Fragrance-Free?",
+}
+
 VALUE_NORMALIZATIONS = {
     "y": "Yes",
     "yes": "Yes",

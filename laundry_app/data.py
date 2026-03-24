@@ -14,6 +14,7 @@ import pandas as pd
 
 from laundry_app.config import (
     COLUMN_VALUE_OVERRIDES,
+    GLOSSARY_TERM_ALIASES,
     HEADER_NORMALIZATIONS,
     NUMERIC_PATTERN,
     PURE_BOOLEAN_TOKENS,
@@ -316,10 +317,27 @@ def infer_column_kind(column: str, series: pd.Series) -> str:
     return "text"
 
 
+def build_glossary_lookup(glossary: GlossarySections) -> dict[str, str]:
+    """Map glossary terms to grid column names and definitions."""
+
+    lookup: dict[str, str] = {}
+
+    for entries in glossary.values():
+        for entry in entries:
+            term = clean_header(entry["term"])
+            column = GLOSSARY_TERM_ALIASES.get(term, term)
+            definition = compact_whitespace(str(entry["definition"] or ""))
+            if column and definition and column not in lookup:
+                lookup[column] = definition
+
+    return lookup
+
+
 def build_column_def(
     column: str,
     kind: str,
     filter_options: list[dict[str, str]] | None = None,
+    header_tooltip: str | None = None,
 ) -> ColumnDef:
     """Create a Dash AG Grid column definition for a normalized column.
 
@@ -342,6 +360,9 @@ def build_column_def(
         "autoHeaderHeight": True,
         "minWidth": 135,
     }
+    if header_tooltip:
+        column_def["headerTooltip"] = header_tooltip
+        column_def["headerClass"] = "glossary-header"
 
     if column == "Product Name":
         column_def.update(
@@ -429,6 +450,8 @@ def build_sheet_payload(
     )
 
     working_frame = frame.copy()
+    sheet_glossary = get_sheet_glossary(sheet_name, glossary)
+    glossary_lookup = build_glossary_lookup(sheet_glossary)
     column_defs: list[ColumnDef] = []
     kind_map: dict[str, str] = {}
 
@@ -440,7 +463,14 @@ def build_sheet_payload(
         if kind == "boolean":
             working_frame[column] = working_frame[column].map(parse_boolean)
         filter_options = build_filter_options(working_frame[column].tolist()) if kind == "set" else None
-        column_defs.append(build_column_def(column, kind, filter_options))
+        column_defs.append(
+            build_column_def(
+                column,
+                kind,
+                filter_options,
+                header_tooltip=glossary_lookup.get(column),
+            )
+        )
 
     return {
         "tab_id": config["tab_id"],
@@ -451,7 +481,7 @@ def build_sheet_payload(
         "rowData": working_frame.where(pd.notna(working_frame), None).to_dict("records"),
         "columnDefs": column_defs,
         "columnKinds": kind_map,
-        "glossary": get_sheet_glossary(sheet_name, glossary),
+        "glossary": sheet_glossary,
     }
 
 

@@ -453,6 +453,31 @@ html[data-mantine-color-scheme="dark"] .sheet-pill-primary {
     background-color: color-mix(in srgb, var(--bs-primary) 7%, transparent);
 }
 
+#laundry-grid .glossary-header .ag-header-cell-text::after {
+    content: "i";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.95rem;
+    height: 0.95rem;
+    margin-left: 0.35rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 24%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-primary) 12%, transparent);
+    color: color-mix(in srgb, var(--bs-primary) 82%, var(--bs-body-color));
+    font-size: 0.64rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1;
+    vertical-align: text-top;
+}
+
+html[data-mantine-color-scheme="dark"] #laundry-grid .glossary-header .ag-header-cell-text::after {
+    border-color: color-mix(in srgb, var(--bs-primary) 36%, rgba(255, 255, 255, 0.18));
+    background: color-mix(in srgb, var(--bs-primary) 18%, rgba(255, 255, 255, 0.02));
+    color: color-mix(in srgb, white 74%, var(--bs-primary));
+}
+
 .flag-column {
     font-weight: 700;
 }
