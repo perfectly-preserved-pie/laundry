@@ -36,7 +36,27 @@ def build_title_card(data: AppData | None) -> dbc.Card:
 
     return dbc.Card(
         [
-            html.H1("Laundry Detergents, Pretreaters, and Boosters", className="card-title mb-2"),
+            html.Div("Laundry Lookup", className="toolbar-title"),
+            html.Div(
+                [
+                    html.H1("Laundry Detergents, Pretreaters, and Boosters", className="card-title mb-0"),
+                    dmc.ColorSchemeToggle(
+                        id="theme-toggle",
+                        lightIcon=DashIconify(
+                            icon="radix-icons:sun",
+                            width=16,
+                            color="var(--mantine-color-yellow-7)",
+                        ),
+                        darkIcon=DashIconify(
+                            icon="radix-icons:moon",
+                            width=16,
+                            color="var(--mantine-color-blue-3)",
+                        ),
+                        size="lg",
+                    ),
+                ],
+                className="title-heading-row mb-2",
+            ),
             html.I(
                 "A Dash AG Grid app for comparing laundry formulas across multiple products.",
                 className="d-block mb-3",
@@ -263,36 +283,6 @@ def build_layout() -> dmc.MantineProvider:
     return dmc.MantineProvider(
         dbc.Container(
             [
-                dbc.Row(
-                    dbc.Col(
-                        html.Div(
-                            [
-                                html.Div(
-                                    [
-                                        html.Div("Laundry Lookup", className="toolbar-title"),
-                                    ]
-                                ),
-                                dmc.ColorSchemeToggle(
-                                    id="theme-toggle",
-                                    lightIcon=DashIconify(
-                                        icon="radix-icons:sun",
-                                        width=16,
-                                        color="var(--mantine-color-yellow-7)",
-                                    ),
-                                    darkIcon=DashIconify(
-                                        icon="radix-icons:moon",
-                                        width=16,
-                                        color="var(--mantine-color-blue-3)",
-                                    ),
-                                    size="lg",
-                                ),
-                            ],
-                            className="top-toolbar",
-                        ),
-                        width=12,
-                    ),
-                    className="pt-3",
-                ),
                 *sections,
                 dbc.Modal(
                     [

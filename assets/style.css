@@ -72,15 +72,8 @@ html[data-mantine-color-scheme="dark"] .dmc {
 }
 
 .app-shell {
+    padding-top: 1rem;
     padding-bottom: 3rem;
-}
-
-.top-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1rem;
 }
 
 .toolbar-title {
@@ -89,6 +82,25 @@ html[data-mantine-color-scheme="dark"] .dmc {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--bs-secondary-color);
+    margin-bottom: 0.7rem;
+}
+
+.title-heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.title-heading-row .card-title {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+@media (max-width: 768px) {
+    .title-heading-row {
+        align-items: flex-start;
+    }
 }
 
 .toolbar-subtitle {
