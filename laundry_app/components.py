@@ -266,7 +266,7 @@ def build_layout() -> dmc.MantineProvider:
                                 "sortable": True,
                                 "resizable": True,
                                 "filter": True,
-                                "floatingFilter": True,
+                                #"floatingFilter": True,
                             },
                             style={"width": "100%", "height": "clamp(28rem, 66vh, 52rem)"},
                             dashGridOptions={
