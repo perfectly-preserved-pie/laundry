@@ -69,7 +69,7 @@ def build_title_card(data: AppData | None) -> dbc.Card:
                         [
                             DashIconify(icon="mdi:reddit", width=18),
                             html.A(
-                                "Made possible by and thanks to /u/KismaiAesthetics",
+                                "Data compiled by /u/KismaiAesthetics",
                                 href=REDDIT_ATTRIBUTION_URL,
                                 target="_blank",
                             ),
