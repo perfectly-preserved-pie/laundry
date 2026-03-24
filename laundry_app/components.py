@@ -272,10 +272,6 @@ def build_layout() -> dmc.MantineProvider:
                                 html.Div(
                                     [
                                         html.Div("Laundry Lookup", className="toolbar-title"),
-                                        html.Div(
-                                            "Dash AG Grid with source-backed sheet tabs",
-                                            className="toolbar-subtitle",
-                                        ),
                                     ]
                                 ),
                                 dmc.ColorSchemeToggle(
