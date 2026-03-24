@@ -272,6 +272,10 @@ def build_layout() -> dmc.MantineProvider:
                             dashGridOptions={
                                 "animateRows": False,
                                 "tooltipShowDelay": 0,
+                                "localeText": {
+                                    "true": "Yes",
+                                    "false": "No",
+                                },
                             },
                             className=AG_GRID_CLASS_NAME,
                         ),
