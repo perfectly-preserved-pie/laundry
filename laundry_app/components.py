@@ -36,24 +36,32 @@ def build_title_card(data: AppData | None) -> dbc.Card:
 
     return dbc.Card(
         [
-            html.Div("Laundry Lookup", className="toolbar-title"),
+            html.Div(
+                [
+                    html.Div("Laundry Lookup", className="toolbar-title"),
+                    html.Span(
+                        dmc.ColorSchemeToggle(
+                            id="theme-toggle",
+                            lightIcon=DashIconify(
+                                icon="radix-icons:sun",
+                                width=16,
+                                color="var(--mantine-color-yellow-7)",
+                            ),
+                            darkIcon=DashIconify(
+                                icon="radix-icons:moon",
+                                width=16,
+                                color="var(--mantine-color-blue-3)",
+                            ),
+                            size="sm",
+                        ),
+                        className="title-theme-toggle",
+                    ),
+                ],
+                className="title-top-row",
+            ),
             html.Div(
                 [
                     html.H1("Laundry Detergents, Pretreaters, and Boosters", className="card-title mb-0"),
-                    dmc.ColorSchemeToggle(
-                        id="theme-toggle",
-                        lightIcon=DashIconify(
-                            icon="radix-icons:sun",
-                            width=16,
-                            color="var(--mantine-color-yellow-7)",
-                        ),
-                        darkIcon=DashIconify(
-                            icon="radix-icons:moon",
-                            width=16,
-                            color="var(--mantine-color-blue-3)",
-                        ),
-                        size="lg",
-                    ),
                 ],
                 className="title-heading-row mb-2",
             ),

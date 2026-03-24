@@ -76,6 +76,13 @@ html[data-mantine-color-scheme="dark"] .dmc {
     padding-bottom: 3rem;
 }
 
+.title-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
 .toolbar-title {
     font-size: 0.82rem;
     font-weight: 800;
@@ -85,19 +92,33 @@ html[data-mantine-color-scheme="dark"] .dmc {
     margin-bottom: 0.7rem;
 }
 
+.title-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.15rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 10%, transparent);
+    background: color-mix(in srgb, var(--bs-tertiary-bg) 38%, transparent);
+    opacity: 0.88;
+}
+
 .title-heading-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
 }
 
 .title-heading-row .card-title {
-    flex: 1 1 auto;
     min-width: 0;
 }
 
 @media (max-width: 768px) {
+    .title-top-row {
+        align-items: center;
+    }
+
     .title-heading-row {
         align-items: flex-start;
     }
@@ -212,6 +233,18 @@ html[data-mantine-color-scheme="dark"] .title-link {
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.08),
         0 14px 28px -24px rgba(0, 0, 0, 0.7);
+}
+
+html[data-mantine-color-scheme="light"] .title-theme-toggle {
+    border-color: color-mix(in srgb, var(--bs-primary) 12%, #d7e2de);
+    background: color-mix(in srgb, white 72%, var(--bs-tertiary-bg));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+html[data-mantine-color-scheme="dark"] .title-theme-toggle {
+    border-color: color-mix(in srgb, var(--bs-primary) 18%, rgba(255, 255, 255, 0.12));
+    background: color-mix(in srgb, white 4%, var(--bs-tertiary-bg));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 html[data-mantine-color-scheme="dark"] .sheet-pill-primary {
@@ -467,6 +500,20 @@ html[data-mantine-color-scheme="dark"] .sheet-pill-primary {
     border-top-color: color-mix(in srgb, var(--bs-primary) 10%, var(--bs-border-color));
 }
 
+html[data-mantine-color-scheme="dark"] #product-modal .modal-content {
+    border-color: color-mix(in srgb, var(--bs-primary) 28%, rgba(255, 255, 255, 0.16));
+    background:
+        linear-gradient(180deg, color-mix(in srgb, white 5%, var(--bs-tertiary-bg)), transparent 8rem),
+        color-mix(in srgb, var(--bs-card-bg) 90%, black 10%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 28px 60px -34px rgba(0, 0, 0, 0.78);
+}
+
+html[data-mantine-color-scheme="dark"] #product-modal .modal-title {
+    color: color-mix(in srgb, white 92%, var(--bs-body-color));
+}
+
 .product-detail-body {
     display: grid;
     gap: 0.65rem;
@@ -486,6 +533,17 @@ html[data-mantine-color-scheme="dark"] .sheet-pill-primary {
     background: color-mix(in srgb, var(--bs-tertiary-bg) 82%, transparent);
 }
 
+html[data-mantine-color-scheme="dark"] .detail-item {
+    border-color: color-mix(in srgb, var(--bs-primary) 20%, rgba(255, 255, 255, 0.14));
+    background:
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, white 5%, var(--bs-tertiary-bg)),
+            color-mix(in srgb, var(--bs-tertiary-bg) 76%, black 24%)
+        );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
 .detail-item-boolean {
     gap: 0.35rem;
 }
@@ -502,10 +560,18 @@ html[data-mantine-color-scheme="dark"] .sheet-pill-primary {
     color: var(--bs-secondary-color);
 }
 
+html[data-mantine-color-scheme="dark"] .detail-term {
+    color: color-mix(in srgb, white 62%, var(--bs-secondary-color));
+}
+
 .detail-value {
     margin-top: 0.18rem;
     white-space: pre-line;
     line-height: 1.34;
+}
+
+html[data-mantine-color-scheme="dark"] .detail-value {
+    color: color-mix(in srgb, white 92%, var(--bs-body-color));
 }
 
 .detail-badge {
@@ -532,6 +598,18 @@ html[data-mantine-color-scheme="dark"] .sheet-pill-primary {
     border-color: color-mix(in srgb, var(--bs-secondary-color) 22%, var(--bs-border-color));
     background: color-mix(in srgb, var(--bs-secondary-color) 12%, transparent);
     color: color-mix(in srgb, var(--bs-body-color) 82%, var(--bs-secondary-color));
+}
+
+html[data-mantine-color-scheme="dark"] .detail-badge-yes {
+    border-color: color-mix(in srgb, var(--bs-primary) 38%, rgba(255, 255, 255, 0.08));
+    background: color-mix(in srgb, var(--bs-primary) 24%, transparent);
+    color: color-mix(in srgb, white 76%, var(--bs-primary));
+}
+
+html[data-mantine-color-scheme="dark"] .detail-badge-no {
+    border-color: color-mix(in srgb, white 14%, var(--bs-border-color));
+    background: color-mix(in srgb, white 7%, transparent);
+    color: color-mix(in srgb, white 82%, var(--bs-body-color));
 }
 
 .detail-empty {
