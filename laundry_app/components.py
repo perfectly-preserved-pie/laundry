@@ -180,8 +180,7 @@ def build_layout() -> dmc.MantineProvider:
                 dbc.CardBody(
                     [
                         html.P(
-                            "Choose a sheet, use the floating filter row and column menus to narrow the grid, and click "
-                            "a row to open the product detail modal.",
+                            "Choose a sheet, use the filter tools to narrow down to products of interest, and click on a row for more details.",
                             className="mb-3 grid-caption",
                         ),
                         dbc.Tabs(
