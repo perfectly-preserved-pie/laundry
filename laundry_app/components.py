@@ -36,7 +36,6 @@ def build_title_card(data: AppData | None) -> dbc.Card:
 
     return dbc.Card(
         [
-            html.Div("Laundry Grid", className="title-kicker"),
             html.H1("Laundry Detergents, Pretreaters, and Boosters", className="card-title mb-2"),
             html.I(
                 "A Dash AG Grid app for comparing laundry formulas across multiple products.",
