@@ -18,7 +18,7 @@ from laundry_app.config import (
     WORKBOOK_URL,
 )
 from laundry_app.data import get_app_data
-from laundry_app.types import AppData, GlossarySections, SheetPayload
+from laundry_app.types import AppData, SheetPayload
 
 
 def build_title_card(data: AppData | None) -> dbc.Card:
@@ -133,63 +133,6 @@ def build_sheet_summary(payload: SheetPayload) -> html.Div:
     )
 
 
-def build_glossary_card(glossary: GlossarySections) -> dbc.Card | None:
-    """Render the glossary card from the workbook's Key sheet.
-
-    Args:
-        glossary: Parsed glossary sections keyed by section title.
-
-    Returns:
-        A Bootstrap card containing the relevant glossary entries, or ``None``
-        when no glossary data is available.
-    """
-
-    if not glossary:
-        return None
-
-    sections = []
-    for section, entries in glossary.items():
-        sections.append(
-            html.Div(
-                [
-                    html.Div(section, className="glossary-section-title"),
-                    html.Div(
-                        [
-                            html.Div(
-                                [
-                                    html.Div(entry["term"], className="glossary-term"),
-                                    html.Div(entry["definition"], className="glossary-definition"),
-                                ],
-                                className="glossary-entry",
-                            )
-                            for entry in entries
-                        ],
-                        className="glossary-list",
-                    ),
-                ],
-                className="glossary-section",
-            )
-        )
-
-    return dbc.Card(
-        [
-            dbc.CardBody(
-                html.Div(
-                    [
-                        html.H2("Column Key", className="h4 mb-2"),
-                        html.P(
-                            "Glossary terms are pulled from the spreadsheet's Key sheet.",
-                            className="mb-3 grid-caption",
-                        ),
-                        html.Div(sections, className="glossary-sections"),
-                    ]
-                )
-            )
-        ],
-        className="glossary-card mt-4",
-    )
-
-
 def build_error_card(message: str) -> dbc.Alert:
     """Build the workbook-load error banner shown in the layout fallback.
 
@@ -282,13 +225,6 @@ def build_layout() -> dmc.MantineProvider:
                     ]
                 ),
                 className="grid-card",
-            )
-        )
-
-        sections.append(
-            html.Div(
-                build_glossary_card(default_payload["glossary"]),
-                id="glossary-card-container",
             )
         )
 

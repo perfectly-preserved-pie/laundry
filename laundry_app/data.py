@@ -368,7 +368,8 @@ def build_column_def(
         column_def.update(
             {
                 "pinned": "left",
-                "minWidth": 260,
+                "width": 280,
+                "minWidth": 180,
                 "tooltipField": column,
             }
         )
