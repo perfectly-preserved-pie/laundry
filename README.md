@@ -1,5 +1,7 @@
 # Laundry Lookup
 
+[![Build and Publish Image](https://github.com/perfectly-preserved-pie/laundry/actions/workflows/build_and_push.yml/badge.svg)](https://github.com/perfectly-preserved-pie/laundry/actions/workflows/build_and_push.yml)
+
 A small Dash app for browsing and comparing laundry detergents, pretreaters, and boosters in one grid.
 
 Data sourced by /u/KismaiAesthetics on Reddit.
