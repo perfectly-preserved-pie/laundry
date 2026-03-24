@@ -39,13 +39,8 @@ def build_title_card(data: AppData | None) -> dbc.Card:
             html.Div("Laundry Grid", className="title-kicker"),
             html.H1("Laundry Detergents, Pretreaters, and Boosters", className="card-title mb-2"),
             html.I(
-                "A Ludex-style Dash AG Grid for comparing laundry formulas across multiple sheets.",
+                "A Dash AG Grid app for comparing laundry formulas across multiple products.",
                 className="d-block mb-3",
-            ),
-            html.P(
-                "Switch tabs to browse detergents, pretreaters, and boosters. Use the inline grid filters for "
-                "categorical fields, numbers, flags, and long-form notes, then click any row for a detail view.",
-                className="mb-3",
             ),
             html.Div(
                 [
