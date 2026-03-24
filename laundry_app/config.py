@@ -16,7 +16,7 @@ WORKBOOK_EXPORT_URL = (
     "https://docs.google.com/spreadsheets/d/"
     "1oHWzZ1Sth0Y0J2ynmXFl7M4mGZe-T_MJ_m_Y39pfBug/export?format=xlsx"
 )
-DEFAULT_GITHUB_URL = "https://github.com/perfectly-preserved-pie/ludex/tree/main"
+DEFAULT_GITHUB_URL = "https://github.com/perfectly-preserved-pie/laundry"
 GITHUB_URL = os.getenv("LAUNDRY_APP_GITHUB_URL", DEFAULT_GITHUB_URL)
 REDDIT_ATTRIBUTION_URL = "https://www.reddit.com/user/KismaiAesthetics/"
 
