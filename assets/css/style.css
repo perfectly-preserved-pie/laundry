@@ -641,6 +641,177 @@ html[data-mantine-color-scheme="dark"] .detail-badge-no {
     color: var(--bs-secondary-color);
 }
 
+.detail-section {
+    display: grid;
+    gap: 0.65rem;
+    padding: 0.8rem 0.85rem;
+    border-radius: 1rem;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 10%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-tertiary-bg) 56%, transparent);
+}
+
+html[data-mantine-color-scheme="dark"] .detail-section {
+    border-color: color-mix(in srgb, var(--bs-primary) 20%, rgba(255, 255, 255, 0.14));
+    background:
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, white 5%, var(--bs-tertiary-bg)),
+            color-mix(in srgb, var(--bs-tertiary-bg) 82%, black 18%)
+        );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.detail-section-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.detail-section-title {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--bs-secondary-color);
+}
+
+.detail-section-meta {
+    font-size: 0.82rem;
+    color: var(--bs-secondary-color);
+}
+
+html[data-mantine-color-scheme="dark"] .detail-section-title,
+html[data-mantine-color-scheme="dark"] .detail-section-meta {
+    color: color-mix(in srgb, white 68%, var(--bs-secondary-color));
+}
+
+.detail-section-body {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.detail-section-note {
+    color: var(--bs-secondary-color);
+    line-height: 1.4;
+}
+
+.source-card-grid {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.source-card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.source-card,
+.ingredient-item {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.72rem 0.78rem;
+    border-radius: 0.9rem;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 10%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-card-bg) 92%, var(--bs-tertiary-bg));
+}
+
+html[data-mantine-color-scheme="dark"] .source-card,
+html[data-mantine-color-scheme="dark"] .ingredient-item {
+    border-color: color-mix(in srgb, var(--bs-primary) 18%, rgba(255, 255, 255, 0.12));
+    background:
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, white 4%, var(--bs-card-bg)),
+            color-mix(in srgb, var(--bs-card-bg) 82%, black 18%)
+        );
+}
+
+.source-card-header,
+.ingredient-header {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.source-card-title,
+.ingredient-name {
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.source-card-meta,
+.ingredient-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.55rem;
+}
+
+.source-card-meta-item,
+.ingredient-meta-item {
+    color: var(--bs-secondary-color);
+    line-height: 1.35;
+}
+
+html[data-mantine-color-scheme="dark"] .source-card-meta-item,
+html[data-mantine-color-scheme="dark"] .ingredient-meta-item,
+html[data-mantine-color-scheme="dark"] .detail-section-note {
+    color: color-mix(in srgb, white 72%, var(--bs-secondary-color));
+}
+
+.detail-chip-list,
+.detail-link-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.detail-chip,
+.detail-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.28rem 0.56rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 18%, var(--bs-border-color));
+    background: color-mix(in srgb, var(--bs-primary) 10%, transparent);
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.detail-link {
+    color: var(--bs-link-color);
+    text-decoration: none;
+}
+
+.detail-link:hover {
+    color: var(--bs-link-hover-color);
+}
+
+html[data-mantine-color-scheme="dark"] .detail-chip,
+html[data-mantine-color-scheme="dark"] .detail-link {
+    border-color: color-mix(in srgb, var(--bs-primary) 22%, rgba(255, 255, 255, 0.12));
+    background: color-mix(in srgb, var(--bs-primary) 18%, transparent);
+}
+
+.ingredients-column {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ingredient-scroll-region {
+    max-height: min(50vh, 28rem);
+    overflow: auto;
+    padding-right: 0.2rem;
+}
+
+.ingredient-list {
+    display: grid;
+    gap: 0.55rem;
+}
+
 .glossary-card .card-body {
     padding: 1rem;
 }

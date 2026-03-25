@@ -4,14 +4,21 @@ version = "0.1.0"
 description = "Dash AG Grid app for laundry detergents, pretreaters, and boosters."
 requires-python = ">=3.11"
 dependencies = [
+    "beautifulsoup4>=4.12.3",
     "dash>=2.18",
     "dash-ag-grid>=32.3.0",
     "dash-bootstrap-components>=1.6.0",
     "dash-iconify>=0.1.2",
     "dash-mantine-components>=0.15.0",
     "gunicorn>=23.0.0",
+    "httpx>=0.28.1",
     "openpyxl>=3.1.5",
     "pandas>=2.2.3",
+]
+
+[project.optional-dependencies]
+scraping-browser = [
+    "playwright>=1.52.0",
 ]
 
 [tool.uv]

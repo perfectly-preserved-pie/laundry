@@ -1,0 +1,17 @@
+{
+  "families": [
+    "church_dwight",
+    "clorox",
+    "dirtylabs",
+    "dropps",
+    "ecos",
+    "sprouts",
+    "tide",
+    "wholefoods"
+  ],
+  "generated_at": "2026-03-25T00:32:17.556443+00:00",
+  "ingredients_long": 181,
+  "product_sources": 21,
+  "scrape_errors": 0,
+  "unmatched_products": 1
+}

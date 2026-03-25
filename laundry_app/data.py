@@ -23,8 +23,12 @@ from laundry_app.config import (
     VALUE_NORMALIZATIONS,
     WORKBOOK_EXPORT_URL,
 )
+from laundry_app.enrichment import build_ingredient_search_text, lookup_product_enrichment
 from laundry_app.filtering import build_filter_options
 from laundry_app.types import AppData, ColumnDef, GlossarySections, SheetPayload
+
+
+INGREDIENT_COLUMN = "Ingredients"
 
 
 def compact_whitespace(value: str) -> str:
@@ -388,6 +392,17 @@ def build_column_def(
         )
         return column_def
 
+    if column == INGREDIENT_COLUMN:
+        column_def.update(
+            {
+                "minWidth": 260,
+                "width": 320,
+                "tooltipField": column,
+                "cellClass": "ingredients-column",
+            }
+        )
+        return column_def
+
     if kind == "number":
         column_def.update(
             {
@@ -451,6 +466,14 @@ def build_sheet_payload(
     )
 
     working_frame = frame.copy()
+    ingredient_values: list[Any] = []
+    for record in working_frame.to_dict("records"):
+        enrichment, _ = lookup_product_enrichment(sheet_name, record)
+        ingredient_values.append(build_ingredient_search_text(enrichment["ingredients"]))
+
+    if any(value not in (None, "") for value in ingredient_values):
+        working_frame[INGREDIENT_COLUMN] = ingredient_values
+
     sheet_glossary = get_sheet_glossary(sheet_name, glossary)
     glossary_lookup = build_glossary_lookup(sheet_glossary)
     column_defs: list[ColumnDef] = []
